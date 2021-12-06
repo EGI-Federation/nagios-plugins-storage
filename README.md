@@ -60,7 +60,7 @@ optional arguments:
 ```
 ## Example
 
-```bash
+```shell
 ./plugins/xrootd_probe.py -E root://eospps.cern.ch:1094/eos/pps/opstest/ftstests/test_andrea -H eospps.cern.ch  --dry-run -X /tmp/x509up_u0  -d
 Dec 01 18:40:53 DEBUG core[1559]: Call sequence: [(<function metricLsDir at 0x7f761240bc80>, 'LsDir', True), (<function metricPut at 0x7f761240bd08>, 'Put', True), (<function metricLs at 0x7f761240bd90>, 'Ls', True), (<function metricGet at 0x7f761240be18>, 'Get', True), (<function metricDel at 0x7f761240bea0>, 'Del', True), (<function metricAlll at 0x7f761240bf28>, 'All', False)]
 Dec 01 18:40:53 DEBUG core[1559]:    Function call: metricLsDir
