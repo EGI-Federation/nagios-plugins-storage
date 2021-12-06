@@ -19,12 +19,6 @@ import uuid
 import gfal2
 import nap.core
 
-try:
-    from urlparse import urlparse
-except BaseException:
-    from urllib.parse import urlparse
-
-
 PROBE_VERSION = "v0.0.1"
 
 
