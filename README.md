@@ -18,7 +18,7 @@ the active check VOAll just combines the passive checks outcomes.
 
 ## Usage
 
-```bash
+```shell
 usage: xrootd_probe.py [-h] [--version] [-H HOSTNAME] [-w WARNING] [-c CRITICAL]
                     [-d] [-p PREFIX] [-s SUFFIX] [-t TIMEOUT] [-C COMMAND]
                     [--dry-run] [-o OUTPUT] [-E ENDPOINT] [-X X509]
