@@ -26,5 +26,5 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           # Fail on errors
           DISABLE_ERRORS: false
-          #disable JSCPD
+          # Disable JSCPD
           VALIDATE_JSCPD: false
