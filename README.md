@@ -81,9 +81,6 @@ Dec 01 18:40:54 DEBUG core[1559]: [1638384054] PROCESS_SERVICE_CHECK_RESULT;eosp
 Dec 01 18:40:54 DEBUG core[1559]:    Function call: metricAlll
 OK - All fine
 
-```
-## rpm build
-```bash
 mkdir build
 cd build
 make rpm -f ../Makefile 
