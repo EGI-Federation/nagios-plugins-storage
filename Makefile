@@ -1,6 +1,6 @@
 NAME=nagios-plugins-xrootd
 SPEC=../$(NAME).spec
-VERSION=${shell grep '^Version:' $(SPEC) | awk '{print $$2}' }
+VERSION=${shell grep '^Version:' $(SPEC) | awk '{print $$2}'}
 # Leave blank. To be overriden by CI tools.
 RELEASE=
 
