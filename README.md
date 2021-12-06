@@ -1,6 +1,4 @@
 # Nagios-plugins-xrootd
-![CI](https://github.com/EGI-Foundation/nagios-plugins-xrootd/workflows/CI/badge.svg)
-
 
 This is Nagios probe to monitor XRootD endpoints executing simple file operations.
 
