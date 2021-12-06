@@ -10,13 +10,14 @@ XRootD probe, using gfal2, NAP, and compatible with python3
 
 import datetime
 import filecmp
-import gfal2
-import nap.core
 import shutil
 import sys
-import time
 import tempfile
+import time
 import uuid
+
+import gfal2
+import nap.core
 
 try:
     from urlparse import urlparse
