@@ -8,15 +8,14 @@ XRootD probe, using gfal2, NAP, and compatible with python3
 
 """
 
-import sys
-import time
-import tempfile
 import datetime
 import filecmp
 import gfal2
 import nap.core
 import shutil
-import os
+import sys
+import time
+import tempfile
 import uuid
 
 try:
@@ -121,7 +120,7 @@ def metricPut(args, io):
         dest_file = args.endpoint + "/" + fn
         _fileDictionary[args.endpoint] = {}
         _fileDictionary[args.endpoint]["fn"] = fn
-    except IOError as e:
+    except IOError:
         io.set_status(nap.CRITICAL, "Error creating source file")
 
     # Set transfer parameters
@@ -174,8 +173,7 @@ def metricLs(args, io):
 
     for url in endpoints:
         try:
-            statp = ctx.stat(str(url))
-
+            ctx.stat(str(url))
             io.summary = "File successfully listed"
             io.status = nap.OK
         except gfal2.GError as e:
@@ -307,7 +305,7 @@ def metricAlll(args, io):
 
     try:
         shutil.rmtree(workdir_metric)
-    except OSError as e:
+    except OSError:
         pass
 
 
