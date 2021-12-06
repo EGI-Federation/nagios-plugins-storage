@@ -10,7 +10,7 @@ Release:    1%{?dist}
 Summary:    Nagios probes to be run remotely against XRootD endpoints
 License:    ASL 2.0
 Group:      Applications/Internet
-URL:        https://github.com/EGI-Foundation/nagios-plugins-xrootd
+URL:        https://github.com/EGI-Federation/nagios-plugins-xrootd
 # The source of this package was pulled from upstream's vcs. Use the
 # following commands to generate the tarball:
 Source0:   %{name}-%{version}.tar.gz
