@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##############################################################################
 # DESCRIPTION
 ##############################################################################
 
 """
-XRootD probe, using gfal2, NAP, and compatible with python3
+EGI Online Storage probe, using gfal2, NAP, and compatible with python3
 
 """
 
@@ -23,7 +23,7 @@ PROBE_VERSION = "v0.0.1"
 
 
 # ########################################################################### #
-app = nap.core.Plugin(description="NAGIOS XRootD probe", version=PROBE_VERSION)
+app = nap.core.Plugin(description="NAGIOS Storage probe", version=PROBE_VERSION)
 app.add_argument("-E", "--endpoint", help="base URL to test")
 app.add_argument("-X", "--x509", help="location of x509 certificate proxy file")
 app.add_argument(
@@ -33,6 +33,8 @@ app.add_argument(
     help="storage operations timeout",
     default=60,
 )
+app.add_argument("-S", "--skip-ls-dir", help="skip LSDir tests, needed for Object storage backend",
+    action="store_true")
 
 gfal2.set_verbose(gfal2.verbose_level.normal)
 
@@ -58,6 +60,8 @@ def parse_args(args, io):
         return 1
     if args.x509:
         cred = gfal2.cred_new("X509_CERT", args.x509)
+        gfal2.cred_set(ctx, "https://", cred)
+        gfal2.cred_set(ctx, "davs://", cred)
         gfal2.cred_set(ctx, "root://", cred)
         gfal2.cred_set(ctx, "xroot://", cred)
 
@@ -72,16 +76,21 @@ def metricLsDir(args, io):
         io.summary = "Argument Endpoint (-E, --endpoint) is missing"
         return
     try:
-        ctx.listdir(str(args.endpoint))
-        io.summary = "Storage Path[%s] Directory successfully listed" % str(
-            args.endpoint
-        )
+        if not args.skip_ls_dir:
+            ctx.listdir(str(args.endpoint))
+            io.summary = "Storage Path[%s] Directory successfully listed" % str(
+                args.endpoint
+            )
+        else:
+            io.summary = "LsDir test skipped"
         io.status = nap.OK
     except gfal2.GError as e:
         er = e.message
+        print(e)
         if er:
             io.status = nap.CRITICAL
-            io.summary = "[Err:%s];" % str(er)
+            io.summary = str(e)
+            #io.summary = "[Err:%s];" % str(er)
         else:
             io.status = nap.CRITICAL
             io.summary = "Error"
@@ -124,7 +133,7 @@ def metricPut(args, io):
     params.timeout = args.se_timeout
     start_transfer = datetime.datetime.now()
 
-    stMsg = "File was copied to the XRootD endpoint"
+    stMsg = "File was copied to the WebDav endpoint"
 
     try:
         ctx.filecopy(params, "file://" + str(src_file), str(dest_file))
@@ -147,7 +156,7 @@ def metricPut(args, io):
 
 @app.metric(seq=3, metric_name="Ls", passive=True)
 def metricLs(args, io):
-    """Stat (previously copied) file(s) on the XRootd endpoint."""
+    """Stat (previously copied) file(s) on the Storage endpoint."""
 
     # verify previous test succeeded
     results = app.metric_results()
@@ -188,7 +197,7 @@ def metricLs(args, io):
 
 @app.metric(seq=4, metric_name="Get", passive=True)
 def metricGet(args, io):
-    """Copy given remote file(s) from XRootD to a local file."""
+    """Copy given remote file(s) from the storage to a local file."""
 
     # verify previous test succeeded
     results = app.metric_results()
@@ -213,7 +222,7 @@ def metricGet(args, io):
 
         params.overwrite = True
 
-        stMsg = "File was copied from XRootD."
+        stMsg = "File was copied from Webdav."
         start_transfer = datetime.datetime.now()
         try:
             ctx.filecopy(params, str(src_file), str(dest_file))
@@ -249,7 +258,7 @@ def metricGet(args, io):
 
 @app.metric(seq=5, metric_name="Del", passive=True)
 def metricDel(args, io):
-    """Delete given file(s) from XRootD."""
+    """Delete given file(s) from the storage."""
 
     # skip only if the put failed
     results = app.metric_results()
@@ -264,7 +273,7 @@ def metricDel(args, io):
 
         src_filename = (_fileDictionary[endpt])["fn"]
         src_file = endpt + "/" + src_filename
-        stMsg = "File was deleted from the XRootD endpoint."
+        stMsg = "File was deleted from the storage endpoint."
         try:
             ctx.unlink(str(src_file))
             io.status = nap.OK
