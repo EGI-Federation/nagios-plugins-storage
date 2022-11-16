@@ -56,6 +56,7 @@ optional arguments:
   -X X509, --x509 X509  location of x509 certificate proxy file
   --se-timeout SE_TIMEOUT
                         storage operations timeout
+  -S, --skip-ls-dir     skip LSDir tests, needed for Object storage backend
 
 ```
 ## Example

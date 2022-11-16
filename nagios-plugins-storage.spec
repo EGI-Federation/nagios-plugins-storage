@@ -4,13 +4,13 @@
 
 %define nagios_plugins_dir %{_libdir}/nagios/plugins
 
-Name:       nagios-plugins-xrootd
+Name:       nagios-plugins-storage
 Version:    0.0.1
 Release:    1%{?dist}
-Summary:    Nagios probes to be run remotely against XRootD endpoints
+Summary:    Nagios probes to be run remotely against EGI Online endpoints
 License:    MIT
 Group:      Applications/Internet
-URL:        https://github.com/EGI-Federation/nagios-plugins-xrootd
+URL:        https://github.com/EGI-Federation/nagios-plugins-storage
 # The source of this package was pulled from upstream's vcs. Use the
 # following commands to generate the tarball:
 Source0:   %{name}-%{version}.tar.gz
@@ -19,11 +19,13 @@ BuildArch: noarch
 
 BuildRequires:  cmake
 Requires:   nagios%{?_isa}
-Requires:   python%{?_isa}
-Requires:   gfal2-python%{?_isa}
-Requires:   python-nap
+Requires:   python36
+Requires:   gfal2-python3
+Requires:   python3-nap
 Requires:   gfal2-plugin-file
 Requires:   gfal2-plugin-xrootd
+Requires:   gfal2-plugin-http 
+
 
 %description
 This package provides the nagios probes for XRootD
@@ -47,9 +49,9 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{nagios_plugins_dir}/xrootd
+%{nagios_plugins_dir}/storage
 %doc LICENSE README.md
 
 %changelog
-* Wed Dec 1 2021 Andrea Manzi <andrea.manzi@egi.eu> - 0.0.1-0
+* Wed Nov 16  2022 Andrea Manzi <andrea.manzi@egi.eu> - 0.0.1-0
 - first version

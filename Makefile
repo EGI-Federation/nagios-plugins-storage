@@ -1,4 +1,4 @@
-NAME=nagios-plugins-xrootd
+NAME=nagios-plugins-storage
 SPEC=../$(NAME).spec
 VERSION=${shell grep '^Version:' $(SPEC) | awk '{print $$2}'}
 # Leave blank. To be overriden by CI tools.
