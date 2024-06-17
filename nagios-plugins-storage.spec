@@ -18,7 +18,7 @@ Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Requires:   nagios%{?_isa}
-Requires:   python36
+Requires:   python3
 Requires:   gfal2-python3
 Requires:   python3-nap
 Requires:   gfal2-plugin-file
