@@ -5,7 +5,7 @@
 %define nagios_plugins_dir %{_libdir}/nagios/plugins
 
 Name:       nagios-plugins-storage
-Version:    0.1.0
+Version:    0.1.1
 Release:    1%{?dist}
 Summary:    Nagios probes to be run remotely against EGI Online endpoints
 License:    MIT
@@ -48,6 +48,9 @@ rm -rf %{buildroot}
 %doc LICENSE README.md
 
 %changelog
+* Tue Jun 18 2024 Andrea Manzi <andrea.manzi@egi.eu> - 0.1.1-0
+- Add read-only option
+
 * Mon Jun 17 2024 Andrea Manzi <andrea.manzi@egi.eu> - 0.1.0-0
 - EL9 version
 
