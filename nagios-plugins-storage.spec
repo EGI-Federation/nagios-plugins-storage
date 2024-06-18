@@ -48,7 +48,7 @@ rm -rf %{buildroot}
 %doc LICENSE README.md
 
 %changelog
-* Tue Jun 18 2024 Andrea Manzi <andrea.manzi@egi.eu> - 0.1.1-0
+* Tue Jun 18 2024 Andrea Manzi <andrea.manzi@egi.eu> - 0.1.1-1
 - Add read-only option
 
 * Mon Jun 17 2024 Andrea Manzi <andrea.manzi@egi.eu> - 0.1.0-0
