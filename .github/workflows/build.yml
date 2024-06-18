@@ -20,7 +20,7 @@ jobs:
         run: |
           make rpm 
       - name: Upload rpms
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rpms7
           path: |
@@ -41,7 +41,7 @@ jobs:
         run: |
           make rpm
       - name: Upload RPMs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rpms9
           path: |
