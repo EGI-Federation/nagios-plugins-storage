@@ -57,6 +57,7 @@ optional arguments:
   --se-timeout SE_TIMEOUT
                         storage operations timeout
   -S, --skip-ls-dir     skip LSDir tests, needed for Object storage backend
+  -RO, --read-only      enable read-only tests
 
 ```
 ## Example
