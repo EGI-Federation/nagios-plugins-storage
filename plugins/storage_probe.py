@@ -26,6 +26,8 @@ PROBE_VERSION = "v0.1.1"
 app = nap.core.Plugin(description="NAGIOS Storage probe", version=PROBE_VERSION)
 app.add_argument("-E", "--endpoint", help="base URL to test")
 app.add_argument("-X", "--x509", help="location of x509 certificate proxy file")
+app.add_argument("-to", "--token", help="BEARER TOKEN to be used")
+
 app.add_argument(
     "--se-timeout",
     dest="se_timeout",
@@ -67,7 +69,12 @@ def parse_args(args, io):
         gfal2.cred_set(ctx, "davs://", cred)
         gfal2.cred_set(ctx, "root://", cred)
         gfal2.cred_set(ctx, "xroot://", cred)
-
+    if args.token:
+        cred = gfal2.cred_new("BEARER", args.token)
+        gfal2.cred_set(ctx, "https://", cred)
+        gfal2.cred_set(ctx, "davs://", cred)
+        gfal2.cred_set(ctx, "root://", cred)
+        gfal2.cred_set(ctx, "xroot://", cred)
 
 @app.metric(seq=1, metric_name="LsDir", passive=True)
 def metricLsDir(args, io):

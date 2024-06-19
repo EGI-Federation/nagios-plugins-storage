@@ -5,7 +5,7 @@
 %define nagios_plugins_dir %{_libdir}/nagios/plugins
 
 Name:       nagios-plugins-storage
-Version:    0.1.1
+Version:    0.1.2
 Release:    1%{?dist}
 Summary:    Nagios probes to be run remotely against EGI Online endpoints
 License:    MIT
@@ -24,7 +24,6 @@ Requires:   python3-nap
 Requires:   gfal2-plugin-file
 Requires:   gfal2-plugin-xrootd
 Requires:   gfal2-plugin-http 
-
 
 %description
 This package provides the nagios probes for XRootD
@@ -48,6 +47,9 @@ rm -rf %{buildroot}
 %doc LICENSE README.md
 
 %changelog
+* Wed Jun 19 2024 Andrea Manzi <andrea.manzi@egi.eu> - 0.1.2-1
+- Add support for bearer tokens
+
 * Tue Jun 18 2024 Andrea Manzi <andrea.manzi@egi.eu> - 0.1.1-1
 - Add read-only option
 
