@@ -54,6 +54,8 @@ optional arguments:
   -E ENDPOINT, --endpoint ENDPOINT
                         Storage URL to test (Mandatory)
   -X X509, --x509 X509  location of x509 certificate proxy file
+  -to TOKEN, --token TOKEN
+                        BEARER TOKEN to be used
   --se-timeout SE_TIMEOUT
                         storage operations timeout
   -S, --skip-ls-dir     skip LSDir tests, needed for Object storage backend
