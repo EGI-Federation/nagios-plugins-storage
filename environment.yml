@@ -1,0 +1,8 @@
+name: nagios-plugins-storage
+channels:
+ - conda-forge
+dependencies:
+ - python-gfal2=1.12.2
+ - pip
+ - pip:
+   - https://github.com/marian-babik/python-nap/archive/refs/tags/v0.1.21.tar.gz

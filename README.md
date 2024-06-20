@@ -20,23 +20,23 @@ the active check VOAll just combines the passive checks outcomes.
 
 ```shell
 usage: storage_probe.py [-h] [--version] [-H HOSTNAME] [-w WARNING] [-c CRITICAL]
-                    [-d] [-p PREFIX] [-s SUFFIX] [-t TIMEOUT] [-C COMMAND]
-                    [--dry-run] [-o OUTPUT] [-E ENDPOINT] [-X X509]
-                    [--se-timeout SE_TIMEOUT]
+                    [-d] [--print-all] [-p PREFIX] [-s SUFFIX] [-t TIMEOUT]
+                    [-C COMMAND] [--dry-run] [-o OUTPUT] [-E ENDPOINT] [-X X509]
+                    [-to TOKEN] [--se-timeout SE_TIMEOUT] [-S] [-RO]
 
 NAGIOS Storage probe
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
   -H HOSTNAME, --hostname HOSTNAME
-                        Host name, IP Address, or unix socket (must be an
-                        absolute path)
+                        Host name, IP Address, or unix socket (must be an absolute path)
   -w WARNING, --warning WARNING
                         Offset to result in warning status
   -c CRITICAL, --critical CRITICAL
                         Offset to result in critical status
   -d, --debug           Specify debugging mode
+  --print-all           Print output from all metrics to stdout
   -p PREFIX, --prefix PREFIX
                         Text to prepend to ever metric name
   -s SUFFIX, --suffix SUFFIX
@@ -45,14 +45,12 @@ optional arguments:
                         Global timeout for plugin execution
   -C COMMAND, --command COMMAND
                         Nagios command pipe for submitting passive results
-  --dry-run             Dry run, will not execute commands and submit passive
-                        results
+  --dry-run             Dry run, will not execute commands and submit passive results
   -o OUTPUT, --output OUTPUT
-                        Plugin output format; valid options are nagios,
-                        check_mk or passive (via command pipe); defaults to
-                        nagios)
+                        Plugin output format; valid options are nagios, check_mk
+                        or passive (via command pipe); defaults to nagios)
   -E ENDPOINT, --endpoint ENDPOINT
-                        Storage URL to test (Mandatory)
+                        base URL to test
   -X X509, --x509 X509  location of x509 certificate proxy file
   -to TOKEN, --token TOKEN
                         BEARER TOKEN to be used
@@ -60,8 +58,8 @@ optional arguments:
                         storage operations timeout
   -S, --skip-ls-dir     skip LSDir tests, needed for Object storage backend
   -RO, --read-only      enable read-only tests
-
 ```
+
 ## Example
 
 ```shell
