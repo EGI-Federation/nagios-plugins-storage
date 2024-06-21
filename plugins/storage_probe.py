@@ -28,6 +28,10 @@ app.add_argument("-E", "--endpoint", help="base URL to test")
 app.add_argument("-X", "--x509", help="location of x509 certificate proxy file")
 app.add_argument("-to", "--token", help="BEARER TOKEN to be used")
 
+app.add_argument("-accesskey", "--s3-access-key", help="S3 access key")
+app.add_argument("-secretkey", "--s3-secret-key", help="S3 secret key")
+app.add_argument("-region", "--s3-region", help="S3 region")
+
 app.add_argument(
     "--se-timeout",
     dest="se_timeout",
@@ -75,6 +79,27 @@ def parse_args(args, io):
         gfal2.cred_set(ctx, "davs://", cred)
         gfal2.cred_set(ctx, "root://", cred)
         gfal2.cred_set(ctx, "xroot://", cred)
+    if args.s3_access_key:
+        ctx.set_opt_string(
+          "S3",
+          "ACCESS_KEY",
+          args.s3_access_key)
+    if args.s3_secret_key:
+        ctx.set_opt_string(
+          "S3",
+          "SECRET_KEY",
+          args.s3_secret_key)
+    region = ""
+    if args.s3_region:
+        region = args.s3_region
+    ctx.set_opt_string(
+        "S3",
+        "REGION",
+        region)
+    ctx.set_opt_boolean(
+        "S3",
+        "ALTERNATE",
+        True)
 
 @app.metric(seq=1, metric_name="LsDir", passive=True)
 def metricLsDir(args, io):
@@ -146,7 +171,7 @@ def metricPut(args, io):
     params.timeout = args.se_timeout
     start_transfer = datetime.datetime.now()
 
-    stMsg = "File was copied to the WebDav endpoint"
+    stMsg = "File was copied to the Storage endpoint"
 
     try:
         ctx.filecopy(params, "file://" + str(src_file), str(dest_file))
@@ -241,7 +266,7 @@ def metricGet(args, io):
 
         params.overwrite = True
 
-        stMsg = "File was copied from Webdav."
+        stMsg = "File was copied from the Storage."
         start_transfer = datetime.datetime.now()
         try:
             ctx.filecopy(params, str(src_file), str(dest_file))
