@@ -160,7 +160,7 @@ def metricPut(args, io):
         if er:
             io.summary = "Error copying to %s, [Err:%s]" % (str(dest_file), str(er))
         else:
-            io.summary = "Error copying to %s" % str(dest_file)"
+            io.summary = "Error copying to %s" % str(dest_file)
     except Exception as e:
         io.set_status(
             nap.CRITICAL,
@@ -201,9 +201,9 @@ def metricLs(args, io):
             er = e.message
             io.status = nap.CRITICAL
             if er:
-                io.summary = "Error listing file: %s,[Err:%s];" % (str(url),str(er))"
+                io.summary = "Error listing file: %s,[Err:%s];" % (str(url),str(er))
             else:
-                io.summary = "Error listing file: %s" % str(url)"
+                io.summary = "Error listing file: %s" % str(url)
 
         except Exception as e:
             io.set_status(
