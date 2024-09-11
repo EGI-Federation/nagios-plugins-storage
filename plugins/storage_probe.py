@@ -63,6 +63,7 @@ gfal2_ver = "gfal2 " + gfal2.get_version()
 def parse_args(args, io):
     if not args.endpoint:
         return 1
+    args.endpoint = args.endpoint.rstrip("/")
     if args.x509:
         cred = gfal2.cred_new("X509_CERT", args.x509)
         gfal2.cred_set(ctx, "https://", cred)
@@ -146,7 +147,7 @@ def metricPut(args, io):
     params.timeout = args.se_timeout
     start_transfer = datetime.datetime.now()
 
-    stMsg = "File was copied to the WebDav endpoint"
+    stMsg = "File was copied to the Storage endpoint"
 
     try:
         ctx.filecopy(params, "file://" + str(src_file), str(dest_file))
@@ -157,9 +158,9 @@ def metricPut(args, io):
         io.status = nap.CRITICAL
         er = e.message
         if er:
-            io.summary = "[Err:%s]" % str(er)
+            io.summary = "Error copying to %s, [Err:%s]" % (str(dest_file), str(er))
         else:
-            io.summary = "Error"
+            io.summary = "Error copying to %s" % str(dest_file)"
     except Exception as e:
         io.set_status(
             nap.CRITICAL,
@@ -200,9 +201,9 @@ def metricLs(args, io):
             er = e.message
             io.status = nap.CRITICAL
             if er:
-                io.summary = "[Err:%s];" % str(er)
+                io.summary = "Error listing file: %s,[Err:%s];" % (str(url),str(er))"
             else:
-                io.summary = "Error"
+                io.summary = "Error listing file: %s" % str(url)"
 
         except Exception as e:
             io.set_status(
@@ -241,7 +242,7 @@ def metricGet(args, io):
 
         params.overwrite = True
 
-        stMsg = "File was copied from Webdav."
+        stMsg = "File was copied from the storage"
         start_transfer = datetime.datetime.now()
         try:
             ctx.filecopy(params, str(src_file), str(dest_file))
