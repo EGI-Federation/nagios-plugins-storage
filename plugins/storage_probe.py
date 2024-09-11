@@ -67,6 +67,7 @@ gfal2_ver = "gfal2 " + gfal2.get_version()
 def parse_args(args, io):
     if not args.endpoint:
         return 1
+    args.endpoint = args.endpoint.rstrip("/")
     if args.x509:
         cred = gfal2.cred_new("X509_CERT", args.x509)
         gfal2.cred_set(ctx, "https://", cred)
@@ -159,7 +160,7 @@ def metricPut(args, io):
 
         fn = _filePattern % (str(int(time.time())), str(uuid.uuid1()))
 
-        dest_file = args.endpoint + "/" + fn
+        dest_file = args.endpoint + "/" +  fn
         _fileDictionary[args.endpoint] = {}
         _fileDictionary[args.endpoint]["fn"] = fn
     except IOError:
@@ -182,7 +183,7 @@ def metricPut(args, io):
         io.status = nap.CRITICAL
         er = e.message
         if er:
-            io.summary = "[Err:%s]" % str(er)
+            io.summary = "Error copying to %s, [Err:%s]" % (str(dest_file), str(er))
         else:
             io.summary = "Error"
     except Exception as e:
@@ -216,7 +217,7 @@ def metricLs(args, io):
         dest_file = endpt + "/" + dest_filename
         endpoints.append(dest_file)
 
-    for url in endpoints:
+    for url in endpoints:	
         try:
             ctx.stat(str(url))
             io.summary = "File successfully listed"
@@ -225,7 +226,7 @@ def metricLs(args, io):
             er = e.message
             io.status = nap.CRITICAL
             if er:
-                io.summary = "[Err:%s];" % str(er)
+                io.summary = "Error listing file: %s,[Err:%s];" % (str(url),str(er))
             else:
                 io.summary = "Error"
 
