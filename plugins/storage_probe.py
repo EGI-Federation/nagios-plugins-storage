@@ -19,7 +19,7 @@ import uuid
 import gfal2
 import nap.core
 
-PROBE_VERSION = "v0.1.1"
+PROBE_VERSION = "v0.1.4"
 
 
 # ########################################################################### #
@@ -63,7 +63,8 @@ gfal2_ver = "gfal2 " + gfal2.get_version()
 def parse_args(args, io):
     if not args.endpoint:
         return 1
-    args.endpoint = args.endpoint.rstrip("/")
+    if args.endpoint.startswith("https") or args.endpoint.startswith("davs"):
+        args.endpoint = args.endpoint.rstrip("/")
     if args.x509:
         cred = gfal2.cred_new("X509_CERT", args.x509)
         gfal2.cred_set(ctx, "https://", cred)

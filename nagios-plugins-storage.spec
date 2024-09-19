@@ -5,7 +5,7 @@
 %define nagios_plugins_dir %{_libdir}/nagios/plugins
 
 Name:       nagios-plugins-storage
-Version:    0.1.3
+Version:    0.1.4
 Release:    1%{?dist}
 Summary:    Nagios probes to be run remotely against EGI Online endpoints
 License:    MIT
@@ -47,6 +47,9 @@ rm -rf %{buildroot}
 %doc LICENSE README.md
 
 %changelog
+* Wed Set 19 2024 Andrea Manzi <andrea.manzi@egi.eu> - 0.1.4-1
+- Add endpoint stripping only for https/davs
+
 * Wed Set 11 2024 Andrea Manzi <andrea.manzi@egi.eu> - 0.1.3-1
 - Add endpoint stripping
 
