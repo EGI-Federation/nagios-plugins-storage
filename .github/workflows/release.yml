@@ -38,7 +38,7 @@ jobs:
     needs: almalinux9
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v7
         with:
           name: rpms9
       - name: Find package name
