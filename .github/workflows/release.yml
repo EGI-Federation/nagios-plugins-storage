@@ -49,7 +49,7 @@ jobs:
           echo "rpm_path=${rpm_path}" >> "$GITHUB_OUTPUT"
           echo "src_path=${src_path}" >> "$GITHUB_OUTPUT"
       - name: Attach AlmaLinux 9 RPMs to the release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
